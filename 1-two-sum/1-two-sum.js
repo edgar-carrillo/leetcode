@@ -39,10 +39,6 @@ iterate through nums
     if differenceNum is NOT in numsHash
         add currNum AND i as value to numsHash
     
-        
-            
-
-
 */
 
 /* --------- IOCE --------- */
