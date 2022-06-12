@@ -4,22 +4,20 @@
  * @return {boolean}
  */
 var isAnagram = function(s, t) {
-    if (s.length !== t.length) {
-        return false;
+    if (s.length !== t.length) return false;
+    
+    const charHash = {};
+    
+    for (const char of s) {
+        charHash[char] = (charHash[char] || 0) + 1;
     }
     
-    const lookup = {};
-    
-    for (let char of s) {
-        lookup[char] = (lookup[char] || 0) + 1;
-    }
-    
-    for (let char of t) {
-        if (!lookup[char]) {
-            return false;
-        } else {
-            lookup[char] -= 1;
-        }
+    for (const char of t) {
+        if (!(char in charHash)) return false;
+        
+        charHash[char] -= 1;
+        
+        if (charHash[char] < 0) return false;
     }
     
     return true;
@@ -30,19 +28,42 @@ var isAnagram = function(s, t) {
 
 /*
 
-    if s character length does NOT equal the amount of characters in t
+    if both strings have different lengths
         return false
         
-    declare a var called lookup init with an empty object
-    
-    iterate over characters in s
-        init value at curr character with 0 if not exist or increment by 1 if it does exist in lookup
+    declare var called charHash init with empty object
         
-    iterate over characters in t
-        if the value at current character in lookup is false
+    iterate over s
+         if the property of currChar does not exist in charHash
+             give it a value of 1
+         otherwise
+             increment the value by 1
+             
+    iterate over t
+        if the current character does not exist in charHash
+        
+        decrement value at currChar by 1
+        
+        if value at currChar is negative
             return false
-        otherwise
-            decrement value at current character in look up by 1
             
-    return true;
+    return true
+
+*/
+
+/* ---------- IOCE ---------- */
+
+/*
+
+    in:
+        - s - (string) - a word
+        - t - (string) - a word
+    out:
+        - (boolean) - true if both string inputs are anagrams of each other. false otherwise
+    cons:
+        do O(n)
+    edge:
+        - if both strings have different lengths return false
+        - case should not matter.
+
 */
