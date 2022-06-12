@@ -41,6 +41,7 @@ var isAnagram = function(s, t) {
              
     iterate over t
         if the current character does not exist in charHash
+            return false
         
         decrement value at currChar by 1
         
