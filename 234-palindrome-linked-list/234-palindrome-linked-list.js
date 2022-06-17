@@ -43,3 +43,42 @@ var isPalindrome = function(head) {
 
     return true;
 };
+
+/*
+create getLength func with head as param
+    create current with head
+    create length init with 0
+    while current
+        increment length by 1
+        have current be current.next
+    return length
+*/
+
+
+/*
+if head doesnt exist return false
+if the heads next value is null
+    return true
+
+
+create length init getLength passing in head
+create halfLength be length divided by 2 rounded down
+
+create firstHalf with an empty array
+create current with head
+declare isEven with true if length / 2 is even, false otherwise
+
+iterate over linked list
+    if i is less then halfLength
+        push currents val into firstHalf
+    otherwise if isEven is true OR isEven is NOT true and i is greater then halfLength
+        create num with number popped from firstHalf
+        if current val does NOT equal num
+            return false
+    have current be currents next node
+            
+return true
+
+
+
+*/
