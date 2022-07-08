@@ -3,70 +3,68 @@
  * @return {boolean}
  */
 var isPalindrome = function(s) {
-    s = removeNonASCIIChars(s);
-    if (s.length === 0) return true;
-    s = s.toLowerCase();
-    let start;
-    let end;
+    let left = 0;
+    let right = s.length - 1;
     
-    for (let i = 0; i < s.length; i++) {
-        start = s.charAt(i);
-        end = s.charAt((s.length - 1) - i);
-        if (start !== end) return false;
-        if (i >= (s.length - 1) - i) break;
+    while (left < right) {
+        while (!isAlphaNum(s.charAt(left)) && left < right) {
+            left += 1;
+        }
+        while (!isAlphaNum(s.charAt(right)) && left < right) {
+            right -= 1;
+        }
+        
+        if (s.charAt(left).toLowerCase() !== s.charAt(right).toLowerCase()) {
+            return false;
+        }
+        
+        left += 1;
+        right -= 1;
     }
     
     return true;
 };
 
-function removeNonASCIIChars(str) {
-    let newStr = '';
-    let ASCIICode;
-    for (let i = 0; i < str.length; i++) {
-        ASCIICode = str.charCodeAt(i);
-        if (
-            ASCIICode >= 48 && ASCIICode <= 57 ||
-            ASCIICode >= 97 && ASCIICode <= 122 ||
-            ASCIICode >= 65 && ASCIICode <= 90
-        ) {
-            newStr += str.charAt(i);
-        }
-    }
-    return newStr;
+function isAlphaNum(char) {
+    ASCIICode = char.charCodeAt(0);
+    const isValidAlphaNum =
+          ASCIICode >= 48 && ASCIICode <= 57 ||
+          ASCIICode >= 97 && ASCIICode <= 122 ||
+          ASCIICode >= 65 && ASCIICode <= 90;
+    return isValidAlphaNum
 }
 
 /*
-removeNonASCIIChars
-    create newStr with an empty str
-    iterate over each character within the input string
-        create ASCIIcode with current characters ascii code
-        if 
+isAlphaNum
+    create ASCIIcode with current characters ascii code
+    if 
         ASCII code is greater then or equal to 48 & less than or equal to 57 OR
         ASCII code is greater than or equal to 97 & less than or equal to 122 OR
         ASCII code is greater than or equal to 65 & less than or equal to 90 OR
-            append the character to newStr
-    return newStr
+            return true
+    return false
 */
 
 /*
 isPalindrome
-    init s with removeNonASCIIChars function passing in s into it.
-    if s length is 0
-        return true
-    init s with it's lowercase version
-    
-    create start
-    create end
-    
-    iterate through each character
-        init start with character at 0 in char
-        init end with character at (str length - 1) - i
 
-        if start does NOT equal end
+
+    create left is 0
+    create right is s's length - 1
+    
+    while left is less then right
+    
+        while left character is not an ASCII char AND left is less then right
+            increase left by 1
+            
+        while right character is NOT an ascii char AND left is less then right
+            increase right by 1
+        
+        if the lowercase version left char is NOT equal to the lowercase version of right char
             return false
-
-        if start is greater then or equal to end
-            break out of loop
+            
+        increase left by 1
+        decrease right by 1
             
     return true
 */
