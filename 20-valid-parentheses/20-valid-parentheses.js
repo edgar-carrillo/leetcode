@@ -1,8 +1,4 @@
-const openBrackets = {
-    '(': 1,
-    '{': 1,
-    '[': 1,
-};
+
 
 /**
  * @param {string} s
@@ -11,22 +7,25 @@ const openBrackets = {
 const isValid = function (s) {
     if (s.length === 0 || s.length % 2 !== 0) return false;
     
+    const closedBrackets = {
+        ')': '(',
+        '}': '{',
+        ']': '[',
+    };
+    
     const stack = [];
     
     for (let i = 0; i < s.length; i++) {
         let currChar = s.charAt(i);
-        if (openBrackets[currChar]) {
-            stack.push(currChar);
-        } else {
+        if (closedBrackets[currChar]) {
             const poppedChar = stack.pop();
-            if (poppedChar === undefined) return false;
-            if (poppedChar === '{' && currChar !== '}') return false;
-            if (poppedChar === '[' && currChar !== ']') return false;
-            if (poppedChar === '(' && currChar !== ')') return false;
+            if (closedBrackets[currChar] !== poppedChar) return false;
+        } else {
+            stack.push(currChar);
         }
     }
     
-    return stack.length === 0
+    return stack.length === 0;
 };
 
 /*
@@ -34,7 +33,7 @@ create object called openBrackets with
 (
 {
 [
-properties with values of 1
+properties with values of  coensiding closing bracket
 */
 
 /*
@@ -44,20 +43,14 @@ if there's an empty string or an odd number of characters in s
 create stack with empty array
 
 traverse through each character in s
-    create current character
-    if the current character is an openingBracket
-        push into stack
-    otherwise if the current character is in closingBracket
+    create currChar
+    if the current character is an closedBrackets
         create popped with the popped character from stack
-        if popped is undefined
+        if currChar in closedBrackets value is not poppedChar
             return false
-        if currentcharacter is } and popped character is NOT { 
-            return false
-        if currentcharacter is ] and popped character is NOT [ 
-            return false
-        if currentcharacter is ) and popped character is NOT ( 
-            return false
-            
+    otherwise if the current character is in closingBracket
+        push into stack
+ 
 if stack has elements
     return false
 otherwise
