@@ -23,18 +23,6 @@ class Node {
             }
         }
         return hasSameChars;
-        /*
-        if strings length is not the same as nodes length
-            return false
-            
-        create obj with each character from str
-        create hasSame with true
-        iterate over each property in obj
-            if obj does NOT have the same value as charsObj at property
-                hasSame becomes false
-                break out of loop
-        return hasSame
-        */
     }
 }
 
@@ -84,26 +72,6 @@ function getStrArrays(head) {
     return result;
 }
 
-/*
-
-create addToLL - head, string
-    create current
-    create found with value false
-    
-    while current is not null OR found is false
-        if currents length equals strs length
-            iterate over each character in str
-                if the character is not in the current nodes charsObj
-                    break out of for loop
-                if we reached the last character
-                    mark found as true
-        have current be currents next node
-        
-    if found is false
-        create node and push it to LinkedList
-    
-*/
-
 /**
  * @param {string[]} strs
  * @return {string[][]}
@@ -122,102 +90,4 @@ var groupAnagrams = function(strs) {
     }
     
     return getStrArrays(linkedList.head);
-    
-    /*
-
-if strs has no elements return [[]]
-
-get the popped string from strs 
-
-create LinkedListNode with popped string from strs
-
-while there are still elements in strs
-    have current string be the popped string from strs
-    traverse through LinkedListNode by invoking addToLL
-    
-return the array of string arrays from LL
-
-*/
 };
-
-/*
-in:
-    (array) - array of strings
-out:
-    - (array) - array of subarrays
-cons:
-    - the input array of strings consists of only lowercase english letters
-edge:
-    - if the string is an empty string, it will be considered an anagram of an empty
-    - if we're given an empty inpupt array
-        return an array with an empty subarray ([[]])
-*/
-
-/*
-
-create class Node
-    create charsObj creates an object with each character within input string
-    create arrayOfChars with an array that holds the input string
-    create next with null
-
--------
-
-create class LinkedList
-    create head
-    create tail
-    
-create push
-    create node with str
-
-    if theres no head
-        head becomes node
-        tail becomes node
-    otherwise
-        tails next becomes node
-        tail becomes node
-        
-*/
-
-/*
-
-create getStringArrays
-    
-*/
-
-/*
-
-create addToLL - head, string
-    create current
-    create found with value false
-    
-    while current is not null OR found is false
-        if currents length equals strs length
-            iterate over each character in str
-                if the character is not in the current nodes charsObj
-                    break out of for loop
-                if we reached the last character
-                    mark found as true
-        have current be currents next node
-        
-    if found is false
-        create node and push it to LinkedList
-    
-*/
-
-/*
-
-if strs has no elements return [[]]
-
-get the popped string from strs 
-
-create LinkedListNode with popped string from strs
-
-while there are still elements in strs
-    have current string be the popped string from strs
-    traverse through LinkedListNode by invoking addToLL
-    
-        
-
-return the array of string arrays from LL
-
-*/
