@@ -1,93 +1,57 @@
-class Node {
-    constructor(str) {
-        this.length = str.length;
-        this.charsObj = str.split('').reduce((prev, curr) => {
-            prev[curr] = (prev[curr] || 0) + 1;
-            return prev;
-        }, {});
-        this.arrayOfStrs = [str];
-        this.next = null;
-    }
-    
-    hasSameChars(str) {
-        if (str.length !== this.length) return false;
-        let strObj = str.split('').reduce((prev, curr) => {
-            prev[curr] = (prev[curr] || 0) + 1;
-            return prev;
-        }, {});
-        let hasSameChars = true;
-        for (const key in this.charsObj) {
-            if (this.charsObj[key] !== strObj[key]) {
-                hasSameChars = false;
-                break;
-            }
-        }
-        return hasSameChars;
-    }
-}
-
-class LinkedList {
-    constructor() {
-        this.head = null;
-        this.tail = null
-    }
-    
-    push(str) {
-        const node = new Node(str);
-        if (!this.head) {
-            this.head = node;
-            this.tail = node;
-        } else {
-            this.tail.next = node;
-            this.tail = node;
-        }
-    }
-}
-
-function addToLL(LL, str) {
-    let current = LL.head;
-    let found = false;
-    
-    while (current && !found) {
-        let hasSameChars = current.hasSameChars(str);
-        if (hasSameChars) {
-            found = true
-            current.arrayOfStrs.push(str);
-            return;
-        };
-        current = current.next;
-    }
-    
-    LL.push(str);
-}
-
-
-function getStrArrays(head) {
-    let result = [];
-    let current = head;
-    while (current) {
-        result.push(current.arrayOfStrs);
-        current = current.next;
-    }
-    return result;
-}
+const CODES = {
+    "a": 0,
+    "b": 1,
+    "c": 2,
+    "d": 3,
+    "e": 4,
+    "f": 5,
+    "g": 6,
+    "h": 7,
+    "i": 8,
+    "j": 9,
+    "k": 10,
+    "l": 11,
+    "m": 12,
+    "n": 13,
+    "o": 14,
+    "p": 15,
+    "q": 16,
+    "r": 17,
+    "s": 18,
+    "t": 19,
+    "u": 20,
+    "v": 21,
+    "w": 22,
+    "x": 23,
+    "y": 24,
+    "z": 25
+};
 
 /**
  * @param {string[]} strs
  * @return {string[][]}
  */
-var groupAnagrams = function(strs) {
-    if (!strs.length) return [[]];
-    
-    let currStr = strs.pop();
-    let linkedList = new LinkedList();
-    linkedList.push(currStr);
-    
-    let current;
-    while (strs.length) {
-        currStr = strs.pop();
-        addToLL(linkedList, currStr);
+var groupAnagrams = function(words) {
+    const map = Object.create(null);
+    for (const word of words) {
+        const hash = hashWord(word);
+        if (!(hash in map)) map[hash] = [];
+        map[hash].push(word);
     }
     
-    return getStrArrays(linkedList.head);
+    const groups = [];
+    for (const key in map) {
+        groups.push(map[key]);
+    }
+    
+    return groups;
 };
+
+function hashWord(word) {
+    const hash = new Array(26).fill(0);
+    for (const char of word) {
+        hash[CODES[char]] += 1;
+    }
+    
+    return hash.toString();
+}
