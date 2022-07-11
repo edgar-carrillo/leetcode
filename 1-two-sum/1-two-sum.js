@@ -4,53 +4,49 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    const numsHash = {};
+    if (!nums.length) return [];
+    
+    const map = Object.create(null);
+    nums.forEach((num, i) => map[num] = i);
     
     for (let i = 0; i < nums.length; i++) {
-        const currNum = nums[i];
-        const differenceNum = target - currNum;
-        
-        if (differenceNum in numsHash) {
-            return [numsHash[differenceNum], i];
-        }
-        
-        if (!(differenceNum in numsHash)) {
-            numsHash[currNum] = i;
-        }
+        const num1 = nums[i];
+        const num2 = target - num1;
+        if (map[num2] && map[num2] !== i) return [i, map[num2]];
     }
+    
+    return [];
 };
 
-/* --------- PSEUDO --------- */
-
 /*
 
-declare a obj called numsHash init with empty obj
+create map with an empty object
 
-
-iterate through nums
-    declare currNum
+iterate over each number in nums
+    push value into map at num
     
-    declare differenceNum init with target - currNum
+iterate over each number in nums
+    create num1 with target - current number
+    create num2 with target - num1
     
-    if differenceNum is in numsHash
-        return an array with index of prop in numsHash AND i
-            
+    if num1 and num2 are the same and are in map
+        return the value at num1 in amp
+    if num1 is in map and num2 is in map
+        return the joined value of num1 in map and num2 in map
         
-    if differenceNum is NOT in numsHash
-        add currNum AND i as value to numsHash
-    
+return empty array
+
 */
 
-/* --------- IOCE --------- */
-
 /*
-    in:
-        - nums - (array) - array of integers
-        - target - (integer) - the sum we want to get.
-    out:
-        - pair - (array) - the numbers that summed together make up target
-    cons:
-        - we only need to return a pair
-    edge:
-        - none
+in:
+    - nums - (array) - array of numbers
+    - target - (integer) - a number
+out:
+    - (array) - an array with the two indecies that add up to target 
+cons:
+    - only one valid answer exists.
+    - strive for O(n) or better time complexity!
+edge:
+    - none
 */
