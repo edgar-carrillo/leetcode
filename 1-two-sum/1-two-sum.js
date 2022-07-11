@@ -6,7 +6,7 @@
 var twoSum = function(nums, target) {
     if (!nums.length) return [];
     
-    const map = {};
+    const map = Object.create(null);
     
     for (let i = 0; i < nums.length; i++) {
         const num = nums[i];
