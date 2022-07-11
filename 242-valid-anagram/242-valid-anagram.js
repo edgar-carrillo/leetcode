@@ -6,16 +6,18 @@
 var isAnagram = function(str1, str2) {
     if (str1.length !== str2.length) return false;
     
-    const hash = Object.create(null);
+    const map = Object.create(null);
     
     for (const char of str1) {
-        hash[char] = (hash[char] || 0) + 1;
+        map[char] = (map[char] || 0) + 1;
     }
     
     for (const char of str2) {
-        if (!hash[char]) return false;
-        hash[char] -= 1;
-        if (hash[char] < 0) return false;
+        if (map[char]) {
+            map[char] -= 1;
+        } else {
+            return false;
+        }
     }
     
     return true;
