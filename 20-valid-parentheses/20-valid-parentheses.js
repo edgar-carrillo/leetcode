@@ -1,27 +1,27 @@
+const openingBrackets = {
+    '(': ')',
+    '{': '}',
+    '[': ']'
+};
 
 
 /**
  * @param {string} s
  * @return {boolean}
  */
-const isValid = function (s) {
+var isValid = function(s) {
     if (s.length === 0 || s.length % 2 !== 0) return false;
-    
-    const closedBrackets = {
-        ')': '(',
-        '}': '{',
-        ']': '[',
-    };
     
     const stack = [];
     
-    for (let i = 0; i < s.length; i++) {
-        let currChar = s.charAt(i);
-        if (closedBrackets[currChar]) {
-            const poppedChar = stack.pop();
-            if (closedBrackets[currChar] !== poppedChar) return false;
-        } else {
+    for (const currChar of s) {
+        if (openingBrackets[currChar]) {
             stack.push(currChar);
+        } else {
+            const potentialValidOpeningBracket = stack.pop();
+            if (openingBrackets[potentialValidOpeningBracket] !== currChar) {
+                return false;
+            }
         }
     }
     
@@ -29,46 +29,40 @@ const isValid = function (s) {
 };
 
 /*
-create object called openBrackets with
-(
-{
-[
-properties with values of  coensiding closing bracket
-*/
 
-/*
-if there's an empty string or an odd number of characters in s
+create an object called openingBrackets with
+
+    opening bracket as key and closing bracket as value for each.
+
+if the string is empty or we have an odd number of characters in str
     return false
     
-create stack with empty array
-
-traverse through each character in s
-    create currChar
-    if the current character is an closedBrackets
-        create popped with the popped character from stack
-        if currChar in closedBrackets value is not poppedChar
+create stack with an empty array
+    
+iterate over each character in string.
+    create currentCharacter with current character in string
+    if current character is an opening bracket
+        add it to stack
+    otherwise
+        create potentialValidOpeningBracket with popped element from stack
+        if potentialValidOpeningBracket in openiningBrackets value does NOT equal currentCharacter
             return false
-    otherwise if the current character is in closingBracket
-        push into stack
- 
-if stack has elements
-    return false
-otherwise
-    return true
+            
+return true
+            
+    
+
 */
 
 
 /*
 in:
-    - (string) - a string of '(', ')', '{', '}', '[', ']'
+    - (string) - string of specific characters
 out:
-    - (boolean) - true if input is valid or false otherwise.
+    - (boolean) - true if string is valid, false otherwise
 cons:
-    - s consists of parentheses only '()[]{}'.
+    - string will only consist of '()[]{}'
 edge:
-    - if empty string
-        return false
-    - if there's a odd number of characters 
-        return false
-
+    - if the string is empty return false
+    - if an odd number of characters, return false.
 */
