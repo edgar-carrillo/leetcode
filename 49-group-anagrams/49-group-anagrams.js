@@ -1,44 +1,46 @@
-const letters = {
-    "a": 0,
-    "b": 0,
-    "c": 0,
-    "d": 0,
-    "e": 0,
-    "f": 0,
-    "g": 0,
-    "h": 0,
-    "i": 0,
-    "j": 0,
-    "k": 0,
-    "l": 0,
-    "m": 0,
-    "n": 0,
-    "o": 0,
-    "p": 0,
-    "q": 0,
-    "r": 0,
-    "s": 0,
-    "t": 0,
-    "u": 0,
-    "v": 0,
-    "w": 0,
-    "x": 0,
-    "y": 0,
-    "z": 0
-};
+const createLetters = () => {
+    return {
+            "a": 0,
+            "b": 0,
+            "c": 0,
+            "d": 0,
+            "e": 0,
+            "f": 0,
+            "g": 0,
+            "h": 0,
+            "i": 0,
+            "j": 0,
+            "k": 0,
+            "l": 0,
+            "m": 0,
+            "n": 0,
+            "o": 0,
+            "p": 0,
+            "q": 0,
+            "r": 0,
+            "s": 0,
+            "t": 0,
+            "u": 0,
+            "v": 0,
+            "w": 0,
+            "x": 0,
+            "y": 0,
+            "z": 0
+        }
+}
 
 /**
  * @param {string[]} strs
  * @return {string[][]}
  */
 var groupAnagrams = function(words) {
+    if (!words.length) return [['']];
+    
     const map = {};
     
-    while (words.length) {
-        const word = words.pop();
+    for (const word of words) {
         const hashedWord = hashWord(word);
-
-        if (map[hashedWord]) {
+        if (hashedWord in map) {
             map[hashedWord].push(word);
         } else {
             map[hashedWord] = [word];
@@ -48,50 +50,51 @@ var groupAnagrams = function(words) {
     return Object.values(map);
 };
 
-var hashWord = function(word) {
-    lettersClone = { ...letters };
-    
+function hashWord(word) {
+    const hashedWord = createLetters();
     for (const char of word) {
-        lettersClone[char] += 1;
+        hashedWord[char] += 1;
     }
     
-    return Object.values(lettersClone).join(',');
+    return Object.values(hashedWord).toString();
 }
 
 /*
 
-create an object containing all characters from the alphbet including an empty string character
-    give each character a value of 0
+CLASS letters
+    create an object with all letters as properties with a value of 0 per letter.
+    returns the above as an object.
 
-create function groupAnagrams
+FUNC groupAnagrams
+    if words doesn't contain anything return [['']]
+
     create map with an empty object
-    
-    WHILE there are still elements in words
-        create word by popping a word from words array
-        create hashedWord by invoking hashWord passing in word
-        if map has property hashedWord
-            push word into map at hashedWord location
-        otherwise
-            create an array containg word inside of property at hashed word in map
-            
-    return all the values within map within an array
-        
 
-create function hashWord
-    create copy of letters
+    itereate over each word in words
+        hash the current word
+        if map contains the hashed word
+            push the current word into the location
+        otherwise
+            initialize the hash location with an array containing the current word.
+
+    return an array of ALL the arrays within map.
+    
+FUNC hashWord
+    create hashedWord with a letters object 
     iterate over each character in word
-        increment value at letter in letters at currChar
+        increment the value of character in hashedWord by 1
         
-    return all the values in letters copy, separting them by comma
+    return hashedWord converting it to a string separated by commas per number
+
 */
 
 /*
 in:
     - (array) - array of strings
 out:
-    - (array) - array of subarrays of strings, each subarray containing anagrams of each other.
+    - (array) - array of subarrays of strings
 cons:
-    - consists only of lowercase english letters
+    - the input array consists of lowercase letters
 edge:
-    - empty string? return an array a subarray containing a empty string.
+    - if there is are no strings in input, return an empty set.
 */
