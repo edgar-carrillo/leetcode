@@ -1,33 +1,31 @@
-const createLetters = () => {
-    return {
-            "a": 0,
-            "b": 0,
-            "c": 0,
-            "d": 0,
-            "e": 0,
-            "f": 0,
-            "g": 0,
-            "h": 0,
-            "i": 0,
-            "j": 0,
-            "k": 0,
-            "l": 0,
-            "m": 0,
-            "n": 0,
-            "o": 0,
-            "p": 0,
-            "q": 0,
-            "r": 0,
-            "s": 0,
-            "t": 0,
-            "u": 0,
-            "v": 0,
-            "w": 0,
-            "x": 0,
-            "y": 0,
-            "z": 0
-        }
-}
+const letters = {
+    "a": 0,
+    "b": 1,
+    "c": 2,
+    "d": 3,
+    "e": 4,
+    "f": 5,
+    "g": 6,
+    "h": 7,
+    "i": 8,
+    "j": 9,
+    "k": 10,
+    "l": 11,
+    "m": 12,
+    "n": 13,
+    "o": 14,
+    "p": 15,
+    "q": 16,
+    "r": 17,
+    "s": 18,
+    "t": 19,
+    "u": 20,
+    "v": 21,
+    "w": 22,
+    "x": 23,
+    "y": 24,
+    "z": 25
+};
 
 /**
  * @param {string[]} strs
@@ -36,27 +34,27 @@ const createLetters = () => {
 var groupAnagrams = function(words) {
     if (!words.length) return [['']];
     
-    const map = {};
+    const map = Object.create(null);
     
     for (const word of words) {
         const hashedWord = hashWord(word);
-        if (hashedWord in map) {
-            map[hashedWord].push(word);
-        } else {
-            map[hashedWord] = [word];
+        if (!map[hashedWord]) {
+            map[hashedWord] = [];
+            
         }
+        map[hashedWord].push(word);
     }
     
     return Object.values(map);
 };
 
 function hashWord(word) {
-    const hashedWord = createLetters();
+    const hash = new Array(26).fill(0);
     for (const char of word) {
-        hashedWord[char] += 1;
+        hash[letters[char]] += 1;
     }
     
-    return Object.values(hashedWord).toString();
+    return hash.toString();
 }
 
 /*
