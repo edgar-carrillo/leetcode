@@ -1,93 +1,59 @@
+const ALPHA_NUM = /^[a-zA-Z0-9]$/;
+
+
 /**
  * @param {string} s
  * @return {boolean}
  */
-var isPalindrome = function(s) {
-    let left = 0;
-    let right = s.length - 1;
-    
-    while (left < right) {
-        while (!isAlphaNum(s.charAt(left)) && left < right) {
-            left += 1;
+function isPalindrome(s) {
+
+    let l = 0;
+    let r = s.length - 1;
+
+    while(l < r){
+        while(l < r && !ALPHA_NUM.test(s[l])){
+            l++;
         }
-        while (!isAlphaNum(s.charAt(right)) && left < right) {
-            right -= 1;
+        while(l < r && !ALPHA_NUM.test(s[r])){
+            r--;
         }
-        
-        if (s.charAt(left).toLowerCase() !== s.charAt(right).toLowerCase()) {
+
+        if(s[l].toLowerCase() !== s[r].toLowerCase()) {
             return false;
         }
-        
-        left += 1;
-        right -= 1;
-    }
-    
-    return true;
-};
 
-function isAlphaNum(char) {
-    ASCIICode = char.charCodeAt(0);
-    const isValidAlphaNum =
-          ASCIICode >= 48 && ASCIICode <= 57 ||
-          ASCIICode >= 97 && ASCIICode <= 122 ||
-          ASCIICode >= 65 && ASCIICode <= 90;
-    return isValidAlphaNum
+        l++;
+        r--;
+    }
+
+    return true;
 }
 
 /*
-isAlphaNum
-    create ASCIIcode with current characters ascii code
-    if 
-        ASCII code is greater then or equal to 48 & less than or equal to 57 OR
-        ASCII code is greater than or equal to 97 & less than or equal to 122 OR
-        ASCII code is greater than or equal to 65 & less than or equal to 90 OR
-            return true
-    return false
-*/
+create left with a pointer at far left side of string
+create right wiuth a pointer at far right side of string
 
-/*
-isPalindrome
-
-
-    create left is 0
-    create right is s's length - 1
+while left is smaller then right
+    create char1 
+    create char2 
     
-    while left is less then right
-    
-        while left character is not an ASCII char AND left is less then right
-            increase left by 1
-            
-        while right character is NOT an ascii char AND left is less then right
-            increase right by 1
+    if char1 is not a character
+        increment left by 1
+        continue
         
-        if the lowercase version left char is NOT equal to the lowercase version of right char
-            return false
-            
-        increase left by 1
-        decrease right by 1
-            
-    return true
-*/
+    if char2 is not a character
+        decrement char2 by 1
+        continue
+        
+    make char1 lowercase
+    make char2 lowercase
+    
+    if char1 does NOT equal char2
+        return false
+    
+    increment left by 1
+    decrement right by 1
+        
+return true
 
-/*
-in:
-    (string) - a phrase which COULD be a palindrome
-out:
-    - (boolean) - true if palindrome, false otherwise
-cons:
-    - input string consists of only ASCII characters
-edge:
-    - if the string length is 0 return true
-    - if a string has non-alphanumeric characters
-        Remove all non-alphanumeric characters.
-        determine if the resulting string is a palindrome
-    - if the string has uppercase letters
-        convert them to lowercase letters
-    - odd number of character palindromes
-    - even number of character palindromes
-Good to know's
-    - alphanumeric characters are letters and numbers.
-    - ASCII charCode 48 - 57 are numbers 0 - 9
-    - ASCII charCode 97 - 122 are letters a - z
-    - ASCII charCode 65 - 90 are letters A - Z
 */
