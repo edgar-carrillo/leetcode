@@ -14,19 +14,5 @@ var twoSum = function(nums, target) {
         
         map[currNum] = i;
     }
-    
-    return [];
 };
 
-/*
-
-create map with an empty object
-
-itereate through nums
-    if target - current number exists in map
-        return target - current numbers index and current index
-        
-    add current index as value to current number in map
-    
-return an empty array
-*/
