@@ -16,18 +16,3 @@ var twoSum = function(numbers, target) {
     
     return [];
 };
-
-/*
-create start with 0
-create end with numbers.length - 1
-
-while start is less then end
-    create sum with start and end
-    if sum is less then target increment start
-    else if sum is greater then target, decrement end
-    else return start + 1 and end + 1
-    
-return an empty array
-
-
-*/
